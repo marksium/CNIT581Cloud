@@ -12,7 +12,7 @@ after_success:
   - echo 'Build succeeded!'
 
 after_failure:
-  - echo 'Build failed!'
+  - echo 'Build failed! '
 
 before_cache:
   - docker save -o $HOME/docker_cache.tar marktest
