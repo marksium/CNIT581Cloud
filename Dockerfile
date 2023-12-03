@@ -6,12 +6,7 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     wget \
-    vim \
-    nano \
-    htop \
     python3 \
-    nodejs \
-    build-essential \
     net-tools
 
 # Clean up the cache to reduce image size
