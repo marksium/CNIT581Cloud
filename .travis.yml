@@ -2,17 +2,17 @@ services:
   - docker
 
 before_script:
-  - echo "Preparing for build..."
+  - echo 'Preparing for build...'
 
 script:
   - docker build -t marktest .
-  - docker run marktest /bin/sh -c "echo 'Hello from inside the container!'"
+  - docker run marktest /bin/sh -c 'echo "Hello from inside the container!"'
 
 after_success:
-  - echo "Build succeeded!"
+  - echo 'Build succeeded!'
 
 after_failure:
-  - echo "Build failed!"
+  - echo 'Build failed!'
 
 before_cache:
   - docker save -o $HOME/docker_cache.tar marktest
@@ -22,4 +22,4 @@ cache:
     - $HOME/docker_cache.tar
 
 before_install:
-  - docker load -i $HOME/docker_cache.tar || true"
+  - docker load -i $HOME/docker_cache.tar || true
