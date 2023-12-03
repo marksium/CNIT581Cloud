@@ -5,14 +5,8 @@ before_script:
   - echo "Preparing for build..."
 
 script:
-  - START_BUILD_TIME=$(date +%s) # Start time for build
-  - docker build -t imagetest .
-  - END_BUILD_TIME=$(date +%s) # End time for build
-  - echo "Build Time: $(($END_BUILD_TIME - $START_BUILD_TIME)) seconds"
-  - START_RUN_TIME=$(date +%s) # Start time for run
-  - docker run imagetest /bin/sh -c "echo 'Hello from inside the container!'"
-  - END_RUN_TIME=$(date +%s) # End time for run
-  - echo "Run Time: $(($END_RUN_TIME - $START_RUN_TIME)) seconds"
+  - docker build -t marktest .
+  - docker run marktest /bin/sh -c "echo 'Hello from inside the container!'"
 
 after_success:
   - echo "Build succeeded!"
@@ -21,11 +15,11 @@ after_failure:
   - echo "Build failed!"
 
 before_cache:
-  - docker save -o $HOME/docker_cache.tar imagetest
+  - docker save -o $HOME/docker_cache.tar marktest
 
 cache:
   directories:
     - $HOME/docker_cache.tar
 
 before_install:
-  - docker load -i $HOME/docker_cache.tar || true
+  - docker load -i $HOME/docker_cache.tar || true"
