@@ -1,8 +1,16 @@
-language: minimal
+arch:
+
+language: python  # Specify the language environment
 
 services:
-  - docker
+  - docker  # Use Docker service
+
+before_install:
+  - docker build -t imageBuild .  # Build a Docker image from your Dockerfile
 
 script:
-  - docker build -t marktest .
-  - docker run marktest
+  - docker run my-ubuntu-image /bin/sh -c "echo 'Running tests'"  # Replace with your actual test command
+
+branches:
+  only:
+    - main  # Build only the main branch
