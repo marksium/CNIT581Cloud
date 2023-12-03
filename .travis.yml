@@ -6,7 +6,7 @@ before_script:
 
 script:
   - docker build -t marktest .
-  - docker run marktest your_command_here
+  - docker run marktest /bin/sh -c "echo 'Hello from inside the container!'"
 
 after_success:
   - echo "Build succeeded!"
