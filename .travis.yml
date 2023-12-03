@@ -5,8 +5,14 @@ before_script:
   - echo 'Preparing for build...'
 
 script:
-  - START_BUILD_TIME=$(date +%s) && docker build -t marktest . && END_BUILD_TIME=$(date +%s) && echo "Build Time: $(($END_BUILD_TIME - $START_BUILD_TIME)) seconds"
-  - START_RUN_TIME=$(date +%s) && docker run marktest /bin/sh -c 'echo "Hello from inside the container!"' && END_RUN_TIME=$(date +%s) && echo "Run Time: $(($END_RUN_TIME - $START_RUN_TIME)) seconds"
+  - START_BUILD_TIME=$(date +%s)
+  - docker build -t marktest .
+  - END_BUILD_TIME=$(date +%s)
+  - echo "Build Time: $(($END_BUILD_TIME - $START_BUILD_TIME)) seconds"
+  - START_RUN_TIME=$(date +%s)
+  - docker run marktest /bin/sh -c 'echo "Hello from inside the container!"'
+  - END_RUN_TIME=$(date +%s)
+  - echo "Run Time: $(($END_RUN_TIME - $START_RUN_TIME)) seconds"
 
 after_success:
   - echo 'Build succeeded!'
