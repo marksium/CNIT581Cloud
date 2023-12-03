@@ -1,16 +1,25 @@
-arch:
-
-language: python  # Specify the language environment
-
 services:
-  - docker  # Use Docker service
+  - docker
 
-before_install:
-  - docker build -t imageBuild .  # Build a Docker image from your Dockerfile
+before_script:
+  - echo "Preparing for build..."
 
 script:
-  - docker run my-ubuntu-image /bin/sh -c "echo 'Running tests'"  # Replace with your actual test command
+  - docker build -t marktest .
+  - docker run marktest your_command_here
 
-branches:
-  only:
-    - main  # Build only the main branch
+after_success:
+  - echo "Build succeeded!"
+
+after_failure:
+  - echo "Build failed!"
+
+before_cache:
+  - docker save -o $HOME/docker_cache.tar marktest
+
+cache:
+  directories:
+    - $HOME/docker_cache.tar
+
+before_install:
+  - docker load -i $HOME/docker_cache.tar || true
